@@ -5,13 +5,12 @@ import logic.ZBuffer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class ZBufferGrid extends JPanel {
     private static final int GRID_SIZE = Constants.WIDTH;
     private static final int SQUARE_SIZE = 6;
 
-    private ZBuffer zBuffer;
+    private final ZBuffer zBuffer;
     public ZBufferGrid(ZBuffer zBuffer) {
         this.zBuffer = zBuffer;
         setSize(new Dimension(Constants.WIDTH, Constants.HEIGHT));
@@ -30,7 +29,7 @@ public class ZBufferGrid extends JPanel {
                 depthValue = Math.min(255, Math.max(0, depthValue)); // Ограничиваем значения
 
                 // Создаем цвет в градациях серого
-                int color = (depthValue << 16) | (depthValue << 8) | depthValue; // RGB (R=G=B)
+                int color = (depthValue << 16) | (depthValue << 8) | depthValue; // RGB (R | G | B)
                 g.setColor(new Color(color));
                 g.drawLine(x, y, x, y);
             }

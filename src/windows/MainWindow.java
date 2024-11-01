@@ -18,8 +18,6 @@ public class MainWindow extends JFrame implements Runnable {
     private ZBufferGrid zBufferGrid;
     private List<List<Point3D>> polygons;
 
-
-
     private final Color[] colors = {
             Color.RED,
             Color.GREEN,
@@ -29,22 +27,25 @@ public class MainWindow extends JFrame implements Runnable {
             Color.MAGENTA,
             Color.ORANGE,
             Color.PINK,
-            new Color(128, 0, 128), // Пурпурный
-            new Color(255, 255, 0)  // Желтый
     };
 
     public MainWindow(ZBuffer zBuffer) {
         this.zBuffer = zBuffer;
+
+        // Задать фигуры
         setPolygons();
+
         setView();
         setMainPanel();
         setVisible(true);
 
+        // Отрисовка фигур с небольшой задержкой между
         int colorID = 0;
         for (List<Point3D> poly: polygons) {
             paintPanel.DrawPolygon(poly, colors[colorID++].getRGB());
             try {
                 Thread.sleep(1000);
+                // Обноваить отрисовку Z-буффера
                 zBufferGrid.repaint();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

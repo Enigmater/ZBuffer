@@ -10,6 +10,7 @@ public class ZBuffer {
     public List<List<Integer>> frameBuffer;
 
     public ZBuffer() {
+        // Инициализация буффера кадра и Z-буффера
         zBuffer = new ArrayList<>(Constants.HEIGHT);
         frameBuffer = new ArrayList<>(Constants.HEIGHT);
         for (int i = 0; i < Constants.HEIGHT; i++) {
@@ -26,11 +27,12 @@ public class ZBuffer {
 
     // Метод для обновления Z-буфера и фрейм-буфера
     public void update(int x, int y, int z, int color) {
+        // Проверка на границы
         if (x < 0 || x >= Constants.WIDTH || y < 0 || y >= Constants.HEIGHT) {
-            return; // Проверка на границы
+            return;
         }
 
-        // Если новый Z меньше текущего, обновляем буферы
+        // Если новый Z больше текущего, обновляем буферы
         if (z > zBuffer.get(y).get(x)) {
             zBuffer.get(y).set(x, z);           // Обновляем Z-значение
             frameBuffer.get(y).set(x, color);   // Обновляем цвет пикселя
